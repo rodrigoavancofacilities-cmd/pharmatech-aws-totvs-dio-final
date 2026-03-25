@@ -26,26 +26,31 @@ O objetivo principal é demonstrar, na prática, como utilizar serviços da AWS 
 
 A aplicação foi estruturada utilizando os seguintes serviços da AWS:
 
-- **Amazon EC2** → Hospedagem da aplicação
-- **Amazon RDS** → Banco de dados gerenciado
-- **Amazon S3** → Armazenamento de arquivos estáticos
-- **AWS IAM** → Controle de acesso e segurança
+- **Amazon EC2** → Hospedagem da aplicação  
+- **Amazon RDS** → Banco de dados gerenciado  
+- **Amazon S3** → Armazenamento de arquivos estáticos  
+- **AWS IAM** → Controle de acesso e segurança  
 
 ---
 
-## 📊 Diagrama de Arquitetura
+## 📊 Diagrama de Arquitetura (Visual)
+
+![Arquitetura AWS](./docs/arquitetura.png)
+
+---
+
+## 📊 Diagrama Alternativo (Mermaid)
 
 ```mermaid
-flowchart TD
+flowchart LR
 
-    User[Usuário] -->|Acessa site| EC2[Amazon EC2 - Aplicação]
+    user([👤 Usuário])
 
-    EC2 -->|Consulta dados| RDS[(Amazon RDS - Banco de Dados)]
+    cf[🌐 CloudFront]
+    ec2[🖥️ EC2 - Aplicação]
+    rds[(🗄️ RDS - Banco de Dados)]
+    s3[(📦 S3 - Arquivos)]
 
-    EC2 -->|Carrega imagens| S3[(Amazon S3 - Arquivos)]
-
-    subgraph AWS Cloud
-        EC2
-        RDS
-        S3
-    end
+    user --> cf --> ec2
+    ec2 --> rds
+    ec2 --> s3
